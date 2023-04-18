@@ -1,18 +1,28 @@
 import LoginForm from "../components/LoginForm";
-import { MemoryRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react'
-import { ReactNode } from "react";
+import { screen, fireEvent } from '@testing-library/react'
+import renderWithRouter from "../utils/renderWithRouter";
 
-function renderWithRouter(componente: ReactNode) {
-  return render(<MemoryRouter>{componente}</MemoryRouter>);
-}
 
 describe('Login test', () => {
-  test('Look for the buttons under login and type in them', () => {
+  beforeEach(() => {
     renderWithRouter(<LoginForm />)
-    const img = screen.getByRole('img', {
-  name: /ultracar/i
+  })
+
+  test('Search and type in login component inputs', () => {
+    const img = screen.getByRole('img', { name: /ultracar/i })
+    const emailInput = screen.getByRole('textbox')
+    const passwordInput = screen.getByPlaceholderText(/password/i)
+    const button = screen.getByRole('button', {
+  name: /login/i
 })
     expect(img).toBeDefined();
+    expect(emailInput).toBeDefined();
+    expect(passwordInput).toBeDefined();
+    expect(passwordInput).toBeDefined();
+    expect(button).toHaveProperty('disabled', true);
+    fireEvent.change(emailInput, {target: {value: 'test@test.com'}})
+    fireEvent.change(passwordInput, {target: {value: 'test123'}})
+    expect(button).toHaveProperty('disabled', false);
+    fireEvent.click(button)
   })
 })
