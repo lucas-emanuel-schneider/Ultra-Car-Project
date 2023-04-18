@@ -23,18 +23,33 @@ function Navbar() {
       <div>
         <img src={ logo } alt="UltraCar" onClick={handleClickOnLogo} />
       </div>
+    <div id="hamburger-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+    </div>
       <ul>
           <li>
             {currentUser}
           </li>
-        <NavLink to="/clients">
+        <NavLink to="/home">
           <li>
-            Clientes
+            Home
+          </li>
+        </NavLink>
+        <NavLink to="/services">
+          <li>
+            Serviços
           </li>
         </NavLink>
         <NavLink to="/stock">
           <li>
             Estoque
+          </li>
+        </NavLink>
+        <NavLink to="/clients">
+          <li>
+            Clientes
           </li>
         </NavLink>
       </ul>

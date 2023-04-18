@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext, ReactNode } from 'react'
 import allEmployeesMock from '../mocks/employees.mock';
 import allServicesMock from '../mocks/services.mocks';
 import IJobs from '../interfaces/Ijob';
+import allCustomers from '../mocks/customersInDb';
 
 function AddNewService() {
   const EMPTY_FORM = {
-    clientName: '',
-    employee: '',
-    service: '',
+    clientName: 'João',
+    employee: 'Núbia',
+    service: 'Inspeção',
   };
+  const allCustomersInDb: string[] = allCustomers;
   const [isDisabled, setIsDisabled] = useState(true);
   const [currentJobs, setCurrentJobs] = useState<IJobs[]>([]);
   const [form, setForm] = useState(EMPTY_FORM)
@@ -46,8 +48,12 @@ function AddNewService() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const newDate = new Date();
     const jobToAdd = findService();
     if (jobToAdd) {
+    jobToAdd.createAt = newDate.toLocaleDateString('pt-BR');
+    jobToAdd.clientName = form.clientName;
+    jobToAdd.employee = form.employee;
     setCurrentJobs((prev) => {
       return [...prev, jobToAdd]})
     }
@@ -61,19 +67,22 @@ function AddNewService() {
     }
 }, [currentJobs]);
 
+
   return (
     <div>
         <form onSubmit={handleSubmit}>
           <h3>Cadastrar Nova Venda</h3>
           <label htmlFor="clientName">
-            <input
-              type="text"
-              id="clientName"
-              name="clientName"
-              placeholder="Nome do cliente"
-              value={ form.clientName }
-              onChange={ handleChange }
-            />
+            <select
+            name="clientName"
+            id="clientName"
+            value={ form.clientName }
+            onChange={ handleChange }
+          >
+            { allCustomersInDb.map((person) => (
+              <option key={person} value={person}>{person}</option>
+            )) }
+            </select>
           </label>
           <label htmlFor="service">
           <select
@@ -112,9 +121,12 @@ function AddNewService() {
       <table className="table">
         <thead>
           <tr>
-            <th>Nome Do Cliente</th>
+            <th>Serviço</th>
             <th>Preço</th>
             <th>Descrição</th>
+            <th>Cliente</th>
+            <th>Funcionário</th>
+            <th>Data</th>
           </tr>
         </thead>
         <tbody>
@@ -128,12 +140,22 @@ function AddNewService() {
                 <td>
                   { job.description }
                 </td>
+                <td>
+                  { job.clientName }
+                </td>
+                <td>
+                  { job.employee }
+                </td>
+                <td>
+                  { job.createAt as ReactNode }
+                </td>
               </tr>
         </tbody>
       </table>
       </section>
           ))}
         </div>
+        <p>Mais Informações na aba Serviços.</p>
       </div>
   )
 }

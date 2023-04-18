@@ -1,8 +1,15 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import ClientsDetails from '../components/ClientsDetails'
 
 function Clients() {
   return (
-    <div>Relatório dos carros atualmente na Oficina</div>
+    <div>
+    <div>
+      <Navbar />
+      <ClientsDetails />
+    </div>
+    </div>
   )
 }
 
