@@ -200,8 +200,10 @@ h3 {
 }
 
 label {
-  display: block;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1rem;
+  /* background-color: red; */
   color: #333;
 }
 
@@ -255,3 +257,4 @@ button:disabled {
 .recent-services-container p:last-child {
   margin-bottom: 0;
 }
+

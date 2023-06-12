@@ -69,10 +69,10 @@ function AddNewService() {
 
 
   return (
-    <div>
+    <div className='form-container'>
         <form onSubmit={handleSubmit}>
           <h3>Cadastrar Nova Venda</h3>
-          <label htmlFor="clientName">
+          <label htmlFor="clientName">Cliente:
             <select
             name="clientName"
             id="clientName"
@@ -83,7 +83,7 @@ function AddNewService() {
               <option key={person} value={person}>{person}</option>
             )) }
             </select>
-          </label>
+          </label>Serviço:
           <label htmlFor="service">
           <select
             name="service"
@@ -95,7 +95,7 @@ function AddNewService() {
               <option key={service.name} value={service.name}>{service.name}</option>
             )) }
           </select>
-        </label>
+        </label>Prosifissional:
         <label htmlFor="employee">
           <select
             name="employee"

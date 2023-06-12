@@ -42,8 +42,7 @@ function StockSearch() {
           </label>
           <span>{ partName.length > 0 && parts.length > 0 ? '' : 'Peça indisponível' }</span>
       </form>
-      {parts.length > 0 && parts.map((part, i) => (
-      <section key={i} className="section-table">
+      <section className="section-table">
       <table className="table">
         <thead>
           <tr>
@@ -52,7 +51,8 @@ function StockSearch() {
           </tr>
         </thead>
         <tbody>
-              <tr>
+      {parts.length > 0 && parts.map((part, i) => (
+              <tr  key={i}>
                 <td>
                   {part.name}
                 </td>
@@ -60,10 +60,10 @@ function StockSearch() {
                   {part.quantity}
                 </td>
               </tr>
+          ))}
         </tbody>
       </table>
       </section>
-          ))}
     </div>
   )
 }
